@@ -1,81 +1,64 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Справочник Организаций, Зданий и Деятельностей
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Проект представляет собой REST API для справочника организаций, зданий и видов деятельности. Взаимодействие с пользователем осуществляется через HTTP запросы к API серверу.
 
-## About Laravel
+## Структура проекта
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. **Организация**:
+    - Название
+    - Номера телефонов (можно несколько)
+    - Здание (одно)
+    - Виды деятельности (несколько)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2. **Здание**:
+    - Адрес
+    - Географические координаты (широта и долгота)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+3. **Деятельность**:
+    - Название
+    - Древовидная структура (например, «Еда → Мясная продукция → Молочная продукция»)
 
-## Learning Laravel
+## Функционал приложения
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Список организаций, находящихся в конкретном здании.
+2. Список организаций по виду деятельности.
+3. Список организаций, находящихся в радиусе/области относительно заданной точки.
+4. Список всех зданий.
+5. Получение информации об организации по ID.
+6. Поиск организаций по виду деятельности с ограничением уровня вложенности (до 3 уровней).
+7. Поиск организаций по названию.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Требования
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.2
+- Laravel 11
+- MySQL
+- Docker (для контейнеризации)
 
-## Laravel Sponsors
+## Установка
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Шаг 1: Клонирование репозитория
 
 
-test
-1. docker-compose build
-2. docker compose up -d
-3. docker ps
-4. docker-compose down
-5. sudo usermod -aG docker $USER
+1. git clone https://github.com/your-repo/organizations-directory.git
+2. cd organizations-directory
 
+### Шаг 2: Запуск Docker контейнеров
+docker-compose up --build
 
+### Шаг 3: Создание .env файла
+cp .env.example .env
 
-1. sudo docker-compose up -d
-2. sudo docker exec -it laravel_app php artisan migrate
-3. docker-compose up -d --build 📌 Запуск проекта в Docker
+### Шаг 4: Настройка базы данных
+
+1. DB_CONNECTION=mysql 
+2. DB_HOST=db 
+3. DB_PORT=3306 
+4. DB_DATABASE=laravel_docker_rest_api 
+5. DB_USERNAME=root 
+6. DB_PASSWORD=root
+
+### Шаг 4: Настройка базы данных
+
+docker exec -it laravel_app php artisan migrate --seed
 
