@@ -40,8 +40,8 @@
 ### Шаг 1: Клонирование репозитория
 
 
-1. git clone https://github.com/your-repo/organizations-directory.git
-2. cd organizations-directory
+1. git clone https://github.com/Afzalshoh02/business-locator.git
+2. cd business-locator
 
 ### Шаг 2: Запуск Docker контейнеров
 sudo docker-compose up --build
