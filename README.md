@@ -44,22 +44,33 @@
 2. cd organizations-directory
 
 ### Шаг 2: Запуск Docker контейнеров
-docker-compose up --build
+sudo docker-compose up --build
 
 ### Шаг 3: Создание .env файла
 cp .env.example .env
 
 ### Шаг 4: Настройка базы данных
 
-1. DB_CONNECTION=mysql 
-2. DB_HOST=db 
-3. DB_PORT=3306 
-4. DB_DATABASE=laravel_docker_rest_api 
-5. DB_USERNAME=root 
+1. DB_CONNECTION=mysql
+2. DB_HOST=db
+3. DB_PORT=3306
+4. DB_DATABASE=laravel_docker_rest_api
+5. DB_USERNAME=root
 6. DB_PASSWORD=root
 
-### Шаг 4: Настройка базы данных
+### Шаг 5: Настройка базы данных
+composer install
 
-docker exec -it laravel_app php artisan migrate --seed
+### Шаг 6: Настройка базы данных
 
-[//]: # (docker-compose down --volumes --remove-orphans)
+sudo docker exec -it laravel_app php artisan migrate --seed
+
+### Шаг 7: Шаги для исправления при возникновении ошибки
+sudo chown -R www-data:www-data /var/www/business-locator/storage
+sudo chmod -R 775 /var/www/business-locator/storage
+php artisan cache:clear
+php artisan view:clear
+php artisan config:clear
+
+sudo docker-compose down
+sudo docker-compose down --volumes --remove-orphans
