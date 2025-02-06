@@ -62,3 +62,4 @@ cp .env.example .env
 
 docker exec -it laravel_app php artisan migrate --seed
 
+[//]: # (docker-compose down --volumes --remove-orphans)

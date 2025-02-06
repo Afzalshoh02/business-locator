@@ -14,6 +14,6 @@ WORKDIR /var/www
 COPY . .
 
 
-RUN chown -R www-data:www-data /var/www
+# RUN chown -R www-data:www-data /var/www
 
 CMD ["php-fpm"]
